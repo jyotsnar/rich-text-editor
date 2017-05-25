@@ -21,6 +21,8 @@ class MyEditor extends React.Component {
     this.focus = () => this.refs.editor.focus();
     this.onChange = (editorState) => this.setState({editorState});
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
+    this.handleEditorClick = this._handleEditorClick.bind(this);
+    this.handleEditorBlur = this._handleEditorBlur.bind(this);
     this.onTab = (e) => this._onTab(e);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
@@ -42,6 +44,21 @@ class MyEditor extends React.Component {
       return true;
     }
     return false;
+  }
+
+  _handleEditorClick() {
+    this.focus;
+    this.setState({
+      showToolbar: true
+    });
+  }
+
+  _handleEditorBlur() {
+    if(!this.state.showMathEditor && !this.state.showURLInput) {
+      this.setState({
+        showToolbar: false
+      });
+    }
   }
 
   _onTab(e) {
@@ -193,6 +210,9 @@ class MyEditor extends React.Component {
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
     let className = 'RichEditor-editor';
+    if(this.state.showToolbar) {
+      className += ' RichEditor-editor-in-edit';
+    }
     var contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
@@ -226,34 +246,42 @@ class MyEditor extends React.Component {
 
     return (
       <div className="RichEditor-root">
-        <BlockStyleControls
-          editorState={editorState}
-          onToggle={this.toggleBlockType}
-        />
-        <InlineStyleControls
-          editorState={editorState}
-          onToggle={this.toggleInlineStyle}
-        />
-        <div style={styles.buttons}>
-          <button onMouseDown={this.addAudio} style={{marginRight: 10}}>
-            Add Audio
-          </button>
-          <button onMouseDown={this.addImage} style={{marginRight: 10}}>
-            Add Image
-          </button>
-          <button onMouseDown={this.addVideo} style={{marginRight: 10}}>
-            Add Video
-          </button>
-          <button onMouseDown={this.showMathEditor} style={{marginRight: 10}}>
-            Math
-          </button>
-          <button onMouseDown={this.hideMathEditor} style={{marginRight: 10}}>
-            Math Done
-          </button>
+        <div>
         </div>
-        {urlInput}
-        {mathEditor}
-        <div className={className} onClick={this.focus}>
+        {this.state.showToolbar && (
+          <div>
+            <BlockStyleControls
+              editorState={editorState}
+              onToggle={this.toggleBlockType}
+            />
+            <InlineStyleControls
+              editorState={editorState}
+              onToggle={this.toggleInlineStyle}
+            />
+            <div style={styles.buttons}>
+              <button onMouseDown={this.addAudio} style={{marginRight: 10}}>
+                Add Audio
+              </button>
+              <button onMouseDown={this.addImage} style={{marginRight: 10}}>
+                Add Image
+              </button>
+              <button onMouseDown={this.addVideo} style={{marginRight: 10}}>
+                Add Video
+              </button>
+              <button onMouseDown={this.showMathEditor} style={{marginRight: 10}}>
+                f(x)
+              </button>
+              {this.state.showMathEditor && 
+                <button onMouseDown={this.hideMathEditor} style={{marginRight: 10}}>
+                  OK
+                </button>
+              }
+            </div>
+            {urlInput}
+            {mathEditor}
+          </div>
+        )}
+        <div className={className} onClick={this.handleEditorClick} onBlur={this.handleEditorBlur}>
           <Editor
             blockStyleFn={this._getBlockStyle}
             customStyleMap={styleMap}
@@ -261,7 +289,7 @@ class MyEditor extends React.Component {
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             onTab={this.onTab}
-            placeholder="Type to begin..."
+            placeholder="Click/Touch here and type to begin..."
             ref="editor"
             spellCheck={true}
             blockRendererFn={this._mediaBlockRenderer}
@@ -279,10 +307,12 @@ const styles = {
     width: 600,
   },
   buttons: {
-    marginBottom: 10,
+    marginBottom: 5,
+    float: 'left'
   },
   urlInputContainer: {
     marginBottom: 10,
+    float: 'left'
   },
   urlInput: {
     fontFamily: '\'Georgia\', serif',
@@ -302,7 +332,8 @@ const styles = {
   mathContainer: {
     width: '50%',
     marginLeft: 'auto',
-    marginRight: 'auto'
+    marginRight: 'auto',
+    clear: 'left'
   }
 };
 

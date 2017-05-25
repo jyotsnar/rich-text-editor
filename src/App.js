@@ -13,6 +13,25 @@ class App extends Component {
         </div>
         <div className="App-intro">
           <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
+          <TextEditor />
         </div>
       </div>
     );
