@@ -160,7 +160,6 @@ class MyEditor extends React.Component {
   _hideMathEditor(e) {
     e.preventDefault();
     var editor = window.com.wiris.jsEditor.JsEditor.newInstance({'language': 'en'}); 
-    alert(editor.getMathML());     
     const {editorState, urlType} = this.state;
     const contentState = editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity(
@@ -174,7 +173,7 @@ class MyEditor extends React.Component {
       {currentContent: contentStateWithEntity}
     );
     this.setState({
-      editorSturlValueate: AtomicBlockUtils.insertAtomicBlock(
+      editorState: AtomicBlockUtils.insertAtomicBlock(
         newEditorState,
         entityKey,
         ' '
@@ -183,6 +182,10 @@ class MyEditor extends React.Component {
     }, () => {
       setTimeout(() => this.focus(), 0);
     });
+  }
+
+  _getAndDisplayMathImage(mathML) {
+
   }
 
   render() {
