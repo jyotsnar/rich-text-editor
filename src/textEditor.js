@@ -47,7 +47,7 @@ class MyEditor extends React.Component {
   }
 
   _handleEditorClick() {
-    this.focus;
+    this.focus();
     this.setState({
       showToolbar: true
     });
@@ -135,7 +135,6 @@ class MyEditor extends React.Component {
   }
 
   _promptForMedia(type) {
-    const {editorState} = this.state;
     this.setState({
       showURLInput: true,
       urlValue: '',
@@ -146,7 +145,6 @@ class MyEditor extends React.Component {
   }
 
   _promptForMathFormula() {
-    const {editorState} = this.state;
     this.setState({
       showMathEditor: true,
       urlType: 'math',
@@ -233,7 +231,7 @@ class MyEditor extends React.Component {
             onKeyDown={this.onURLInputKeyDown}
           />
           <button onMouseDown={this.confirmMedia}>
-            Confirm
+            Add
           </button>
         </div>;
     }

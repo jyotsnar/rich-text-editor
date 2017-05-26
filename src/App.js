@@ -9,7 +9,8 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Our New Rich Text Editor</h2>
+          <h2>Rich Text Editor Using <a href='https://draftjs.org/'>Draft.js</a> 
+            &nbsp;and <a href='http://www.wiris.com/en/editor'>Wiris</a></h2>
         </div>
         <div className="App-intro">
           <TextEditor />

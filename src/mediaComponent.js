@@ -21,7 +21,7 @@ const Audio = (props) => {
   return <audio controls src={props.src} style={styles.media} />;
 };
 const Image = (props) => {
-  return <img src={props.src} style={styles.media} />;
+  return <img alt='formula or image' src={props.src} style={styles.media} />;
 };
 const Video = (props) => {
   return <video controls src={props.src} style={styles.media} />;
